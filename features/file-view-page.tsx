@@ -121,6 +121,7 @@ export const FileViewPage = ({
                             className="display-none"
                             file={file}
                             onLoadSuccess={onDocumentLoadSuccess}
+                            loading={<div></div>} 
                     >
                             <div className="w-full flex flex-wrap justify-center px-20">
                                 {Array.from(new Array(numPages), (el, index) => (
