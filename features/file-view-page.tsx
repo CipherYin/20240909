@@ -4,8 +4,8 @@ import { Document, Page } from 'react-pdf';
 import { useUploadStatus } from "./hooks/use-upload-status";
 import { pdfjs } from 'react-pdf';
 import { Hint } from "@/components/hint";
-// import { degrees, PDFDocument } from 'pdf-lib';
-// import { saveAs } from 'file-saver'; 
+import { degrees, PDFDocument } from 'pdf-lib';
+import { saveAs } from 'file-saver'; 
 type FileViewPageProps = {
     file: File | null,
 }
@@ -61,19 +61,19 @@ export const FileViewPage = ({
 
     const downloadRotatedPdf = async () => {
         if(file){
-            // const arrayBuffer = await file.arrayBuffer();
-            // const pdfDoc = await PDFDocument.load(arrayBuffer);
-            //     pdfDoc.getPages().forEach((page, index) => {
-            //   const rotationAngle = pageRotations[index];
-            //   if (rotationAngle) {
-            //     page.setRotation(degrees(rotationAngle));
-            // }
-            // });
-            // const pdfBytes = await pdfDoc.save();
-            // const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-            // const originalFileName = file.name.split('.').slice(0, -1).join('.'); // 移除文件扩展名
-            // const fileName = `${originalFileName}(pdf.ai-rotated).pdf`
-            // saveAs(blob, fileName);
+            const arrayBuffer = await file.arrayBuffer();
+            const pdfDoc = await PDFDocument.load(arrayBuffer);
+                pdfDoc.getPages().forEach((page, index) => {
+              const rotationAngle = pageRotations[index];
+              if (rotationAngle) {
+                page.setRotation(degrees(rotationAngle));
+            }
+            });
+            const pdfBytes = await pdfDoc.save();
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const originalFileName = file.name.split('.').slice(0, -1).join('.'); // 移除文件扩展名
+            const fileName = `${originalFileName}(pdf.ai-rotated).pdf`
+            saveAs(blob, fileName);
         }
         
       };
